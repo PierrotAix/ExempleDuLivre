@@ -10,6 +10,7 @@ namespace Chapitre24.Serialisation
 {
     class Program
     {
+        private static string myRootPath;
         private static string myOutputXMLFileFullname;
         private static string myOutputXMLZIPFileFullname;
 
@@ -24,8 +25,9 @@ namespace Chapitre24.Serialisation
         private static void TestSerialisationXMLToCompressedFile()
         {
             // Configuration
-            myOutputXMLFileFullname = @"D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\Tests\XML\ReplacedField.xml";
-            myOutputXMLZIPFileFullname = @"D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\Tests\XMLZIP\ReplacedField.xml.zip";
+            myRootPath = @"C:\Temp";
+            myOutputXMLFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XML\ReplacedField.xml";
+            myOutputXMLZIPFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XMLZIP\ReplacedField.xml.zip";
 
             // If the output file alreary exists, delete it
             FileInfo fileInfo = new FileInfo(myOutputXMLFileFullname);
