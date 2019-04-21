@@ -25,7 +25,7 @@ namespace Chapitre24.Serialisation
         private static void TestSerialisationXMLToCompressedFile()
         {
             // Configuration
-            myRootPath = @"C:\Temp";
+            myRootPath = @"C:\Temp"; // a adapter
             myOutputXMLFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XML\ReplacedField.xml";
             myOutputXMLZIPFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XMLZIP\ReplacedField.xml.zip";
 
