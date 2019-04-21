@@ -1,0 +1,7 @@
+D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\bin\Debug\Chapitre24.Serialisation.exe.config
+D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\bin\Debug\Chapitre24.Serialisation.exe
+D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\bin\Debug\Chapitre24.Serialisation.pdb
+D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\obj\Debug\Chapitre24.Serialisation.csprojAssemblyReference.cache
+D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\obj\Debug\Chapitre24.Serialisation.csproj.CoreCompileInputs.cache
+D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\obj\Debug\Chapitre24.Serialisation.exe
+D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON\ExemplesDuLivre\Chapitre24.Serialisation\obj\Debug\Chapitre24.Serialisation.pdb
