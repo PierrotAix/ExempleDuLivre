@@ -1,6 +1,28 @@
 <?xml version="1.0"?>
-<ReplacedField xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Pattern>myPattern</Pattern>
+<myRootElement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="myNamespace">
+  <myObservations>
+    <Observation>
+      <Date>2019-04-21T17:36:03.9520512+02:00</Date>
+      <Enregistrement>premier enregistrement</Enregistrement>
+    </Observation>
+    <Observation>
+      <Date>2019-04-21T17:36:03.9560538+02:00</Date>
+      <Enregistrement>deuxieme enregistrement</Enregistrement>
+    </Observation>
+    <Observation>
+      <Date>2019-04-21T17:36:03.9560538+02:00</Date>
+      <Enregistrement>troisieme enregistrement</Enregistrement>
+    </Observation>
+    <Observation>
+      <Date>2019-04-21T17:36:03.9560538+02:00</Date>
+      <Enregistrement>quatrieme enregistrement</Enregistrement>
+    </Observation>
+    <Observation>
+      <Date>2019-04-21T17:36:03.9560538+02:00</Date>
+      <Enregistrement>cinquieme enregistrement</Enregistrement>
+    </Observation>
+  </myObservations>
+  <PatternElement>myPattern</PatternElement>
   <Field>myField</Field>
   <HasChanged>true</HasChanged>
-</ReplacedField>
+</myRootElement>
