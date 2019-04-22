@@ -24,9 +24,17 @@ namespace Chapitre24.Serialisation
 
             TestLINQtoXML(); //page 347
 
+            TestXMLAdd(); // https://docs.microsoft.com/fr-fr/dotnet/csharp/programming-guide/concepts/linq/adding-elements-attributes-and-nodes-to-an-xml-tree
+
+            testXMLAdd2();
+
+            //TestConvertToCSV(); //https://www.codeproject.com/Questions/171508/how-to-convert-xml-to-csv-in-c-net
+
             Console.WriteLine("Press a keyboard key to exit");
             Console.ReadKey();
         }
+
+
 
 
 
@@ -122,10 +130,12 @@ namespace Chapitre24.Serialisation
                 Console.WriteLine(item);
             }
 
+            //https://docs.microsoft.com/fr-fr/dotnet/csharp/programming-guide/concepts/linq/linq-to-xml-overview
             // Try with XElement instead of XDocument
             XElement purchaseOrder = XElement.Load(@"C:\Temp\ExempleDuLivre\Chapitre24.Serialisation\Tests\PurchaseOrder.xml");
 
-            Console.WriteLine("\nListe de valeur d'attribut de numéro de référence pour chaque élément de la commande fournisseur");
+            Console.WriteLine("\nListe de valeur d'attribut de numéro de référence pour chaque " +
+                "élément de la commande fournisseur");
             //IEnumerable<string> partNos = from item in purchaseOrder.Descendants("Item")
             //                                     select (string)item.Attribute("PartNumber");
             IEnumerable<string> partNos = purchaseOrder.Descendants("Item")
@@ -136,14 +146,98 @@ namespace Chapitre24.Serialisation
             }
 
             Console.WriteLine("\nListe des éléments avec une valeur supérieure à $ 100, triés par numéro de référence.");
-            IEnumerable<XElement> pricesByPartNos = from item in purchaseOrder.Descendants("Item")
-                                                  where (int)item.Element("Quantity") * (decimal)item.Element("USPrice") > 100
-                                                  orderby (string)item.Element("PartNumber")
-                                                  select item;
+            //IEnumerable<XElement> pricesByPartNos = from item in purchaseOrder.Descendants("Item")
+            //                                      where (int)item.Element("Quantity") * (decimal)item.Element("USPrice") > 100
+            //                                      orderby (string)item.Element("PartNumber")
+            //                                      select item;
+            IEnumerable<XElement> pricesByPartNos = purchaseOrder.Descendants("Item")
+                .Where(item => (int)item.Element("Quantity") * (decimal)item.Element("USPrice") > 100)
+                .OrderBy(order => order.Element("PartNumber"));
+
             foreach (var pricesByPartNo in pricesByPartNos)
             {
                 Console.WriteLine($"{pricesByPartNo.Element("ProductName").Value}");
             }
+
+            Console.WriteLine("\nListe des villes où d'attribut du l'adresse est Billing");
+            var cities = purchaseOrder.Descendants("Address")
+                .Where(item => (string)item.Attribute("Type") == "Billing")
+                .Select(x => (string)x.Element("City"));
+            foreach (var city in cities)
+            {
+                Console.WriteLine($"city: {city}");
+            }
+
+            Console.WriteLine("\nListe des villes où le pays est USA");
+            var uscities = purchaseOrder.Descendants("Address")
+                .Where(item => (string)item.Element("Country") == "USA")
+                .Select(x => (string)x.Element("City"));
+            foreach (var city in uscities)
+            {
+                Console.WriteLine($"USA city: {city}");
+            }
+
+        }
+
+        /// <summary>
+        /// Concatenate into an XML
+        /// https://docs.microsoft.com/fr-fr/dotnet/csharp/programming-guide/concepts/linq/adding-elements-attributes-and-nodes-to-an-xml-tree
+        /// </summary>
+        private static void TestXMLAdd()
+        {
+            // Configuration and reset
+            string outputFile = @"C:\Temp\ExempleDuLivre\Chapitre24.Serialisation\Tests\PurchaseOrderAdded.xml";
+            FileInfo fileInfo = new FileInfo(outputFile);
+            fileInfo.Delete();
+
+            // Load in menory the XML example
+            XDocument xDocument = XDocument.Load(@"C:\Temp\ExempleDuLivre\Chapitre24.Serialisation\Tests\PurchaseOrder.xml");
+
+            // XML to add
+            XElement xElement1 = new XElement("NouvelEnfant1", "Contenu de l'enfant 1.");
+            XElement xElement2 = new XElement("NouvelEnfant2", "Contenu de l'enfant 2.");
+            XElement xElement3 = new XElement("NouvelElement", xElement1, xElement2);
+
+
+            // Adding
+            xDocument.Root.Add(xElement3);
+
+            xDocument.Save(outputFile);
+            Console.WriteLine($"The output file is {outputFile}");
+            /* On retouve en bas du fichier xml:
+               </Items>
+                    <NouvelElement>
+                        <NouvelEnfant1>Contenu de l'enfant 1.</NouvelEnfant1>
+                        <NouvelEnfant2>Contenu de l'enfant 2.</NouvelEnfant2>
+                    </NouvelElement>
+            </PurchaseOrder>* 
+             * */
+
+        }
+
+        private static void testXMLAdd2()
+        {
+            // Configuration and reset
+            string outputFile = @"C:\Temp\ExempleDuLivre\Chapitre24.Serialisation\Tests\PurchaseOrderAdded2.xml";
+            FileInfo fileInfo = new FileInfo(outputFile);
+            fileInfo.Delete();
+
+            // Load in menory the XML example
+            XDocument xDocument = XDocument.Load(@"C:\Temp\ExempleDuLivre\Chapitre24.Serialisation\Tests\PurchaseOrder.xml");
+
+            // XML to add
+            // Object instanciation and initialization.
+            ReplacedField O = new ReplacedField();
+
+            // XML serializer creation.
+            XmlSerializer serializer = new XmlSerializer(typeof(ReplacedField));
+            //XElement xElement = (XElement)serializer;
+
+            // Adding
+            //xDocument.Root.Add(xElement);
+
+            xDocument.Save(outputFile);
+            Console.WriteLine($"The output file is {outputFile}");
 
         }
     }

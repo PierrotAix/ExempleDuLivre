@@ -16,6 +16,14 @@
     <Zip>95819</Zip>  
     <Country>USA</Country>  
   </Address>  
+  <Address Type="Billing">  
+    <Name>Pierre DESMAZES</Name>  
+    <Street>67 rue du mar Franchet d'Esperey</Street>  
+    <City>Aix-en-Provence</City>  
+    <State>PACA</State>  
+    <Zip>13090</Zip>  
+    <Country>FRANCE</Country>  
+  </Address> 
   <DeliveryNotes>Please leave packages in shed by driveway.</DeliveryNotes>  
   <Items>  
     <Item PartNumber="872-AA">  
