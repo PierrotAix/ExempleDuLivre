@@ -1,28 +1,5 @@
 <?xml version="1.0"?>
-<myRootElement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="myNamespace">
-  <myObservations>
-    <Observation>
-      <Date>2019-04-22T09:52:42.5855686+02:00</Date>
-      <Enregistrement>premier enregistrement</Enregistrement>
-    </Observation>
-    <Observation>
-      <Date>2019-04-22T09:52:42.5925745+02:00</Date>
-      <Enregistrement>deuxieme enregistrement</Enregistrement>
-    </Observation>
-    <Observation>
-      <Date>2019-04-22T09:52:42.5925745+02:00</Date>
-      <Enregistrement>troisieme enregistrement</Enregistrement>
-    </Observation>
-    <Observation>
-      <Date>2019-04-22T09:52:42.5925745+02:00</Date>
-      <Enregistrement>quatrieme enregistrement</Enregistrement>
-    </Observation>
-    <Observation>
-      <Date>2019-04-22T09:52:42.5925745+02:00</Date>
-      <Enregistrement>cinquieme enregistrement</Enregistrement>
-    </Observation>
-  </myObservations>
-  <PatternElement>myPattern</PatternElement>
-  <Field>myField</Field>
-  <HasChanged>true</HasChanged>
-</myRootElement>
+<Observation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Date>2019-04-22T15:05:13.0384592+02:00</Date>
+  <Enregistrement>MyRecording</Enregistrement>
+</Observation>

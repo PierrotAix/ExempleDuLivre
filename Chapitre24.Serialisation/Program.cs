@@ -12,7 +12,7 @@ namespace Chapitre24.Serialisation
 {
     class Program
     {
-        private static string myRootPath = @"D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON"; // TO BE CONFIGURATE according to where is your solution directory
+        private static string myRootPath = @"D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON"; // TO BE CONFIGURATE according to where is your solution directory 
         private static string myOutputXMLFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XML\ReplacedField.xml";
         private static string myOutputXMLZIPFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XMLZIP\ReplacedField.xml.zip";
 
@@ -215,6 +215,9 @@ namespace Chapitre24.Serialisation
 
         }
 
+        /// <summary>
+        /// Add objet serialized in XML to an XML file
+        /// </summary>
         private static void testXMLAdd2()
         {
             // Configuration and reset
@@ -222,24 +225,74 @@ namespace Chapitre24.Serialisation
             FileInfo fileInfo = new FileInfo(outputFile);
             fileInfo.Delete();
 
-            // Load in menory the XML example
-            XDocument xDocument = XDocument.Load(@"C:\Temp\ExempleDuLivre\Chapitre24.Serialisation\Tests\PurchaseOrder.xml");
+            // ---------------------Top XML example
+            XElement xElement = XElement.Load(@"C:\Temp\ExempleDuLivre\Chapitre24.Serialisation\Tests\PurchaseOrder.xml");
 
-            // XML to add
+            // ---------------------Bottom XML built from an object
+            // XML to add from an object
             // Object instanciation and initialization.
-            ReplacedField O = new ReplacedField();
+            ReplacedField o = new ReplacedField();
 
-            // XML serializer creation.
-            XmlSerializer serializer = new XmlSerializer(typeof(ReplacedField));
-            //XElement xElement = (XElement)serializer;
 
-            // Adding
-            //xDocument.Root.Add(xElement);
+            //// XML serializer creation.
+            //XmlSerializer serializer = new XmlSerializer(typeof(ReplacedField));
 
-            xDocument.Save(outputFile);
+            //// Flux creation
+            //Stream stream = new FileStream(myOutputXMLFileFullname, FileMode.Create);
+
+            //// Object serialisation into the flux.
+            //serializer.Serialize(stream, O);
+            //stream.Close();
+            //stream.Dispose();
+
+            // Get the serialized XElement of an object
+            XElement xElement1 = Serializer<ReplacedField>.GetXElementFromObject(o);
+
+            // Adding a first object
+            xElement.Add(new XElement("NewChid","new content"));
+            xElement.Add(xElement1);
+
+            // Adding a second object
+            Observation ob = new Observation { Date = DateTime.Now, Enregistrement = "MyRecording"};
+            XElement xElement2 = Serializer<Observation>.GetXElementFromObject(ob);
+            xElement.Add(xElement2);
+
+            xElement.Save(outputFile);
             Console.WriteLine($"The output file is {outputFile}");
 
         }
+
+
+    }
+
+    public static class Serializer<T> where T : class
+    {
+        private static string myRootPath = @"D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON"; // TO BE CONFIGURATE according to where is your solution directory
+        private static string myOutputXMLFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XML\ReplacedField.xml";
+
+        public static XElement GetXElementFromObject(T o)
+        {
+            // ---------------------Bottom XML built from an object
+            // XML to add from an object
+            // Object instanciation and initialization.
+            //T O = new T();
+
+            // XML serializer creation.
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+            // Flux creation
+            Stream stream = new FileStream(myOutputXMLFileFullname, FileMode.Create);
+
+            // Object serialisation into the flux.
+            serializer.Serialize(stream, o);
+            stream.Close();
+            stream.Dispose();
+
+            // Load the second XElement
+            XElement xElement1 = XElement.Load(myOutputXMLFileFullname);
+            return xElement1;
+        }
+
     }
 
     public class Observation
