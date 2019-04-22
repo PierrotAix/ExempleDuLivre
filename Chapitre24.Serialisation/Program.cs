@@ -12,7 +12,7 @@ namespace Chapitre24.Serialisation
 {
     class Program
     {
-        private static string myRootPath = @"C:\Temp"; // TO BE CONFIGURATE according to where is your solution directory
+        private static string myRootPath = @"D:\BITBUCKET\c-sharp\Livre C#6 de Jerome HUGON"; // TO BE CONFIGURATE according to where is your solution directory
         private static string myOutputXMLFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XML\ReplacedField.xml";
         private static string myOutputXMLZIPFileFullname = myRootPath + @"\ExempleDuLivre\Chapitre24.Serialisation\Tests\XMLZIP\ReplacedField.xml.zip";
 
