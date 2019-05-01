@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ2008", "LINQ2008\LINQ2008.csproj", "{283FE97B-C117-4DC1-9A55-1DC754796CAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E4EA3046-E491-4783-9C72-18B7AF547717}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4EA3046-E491-4783-9C72-18B7AF547717}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4EA3046-E491-4783-9C72-18B7AF547717}.Release|Any CPU.Build.0 = Release|Any CPU
+		{283FE97B-C117-4DC1-9A55-1DC754796CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{283FE97B-C117-4DC1-9A55-1DC754796CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{283FE97B-C117-4DC1-9A55-1DC754796CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{283FE97B-C117-4DC1-9A55-1DC754796CAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
