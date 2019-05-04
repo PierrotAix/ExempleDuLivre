@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,10 +16,140 @@ namespace ExempleDeleguesEvenementsExpressionsLambdas
 
             //Test01();
 
-            Test02(); // Lambda expression
+            //Test02(); // Lambda expression
+
+            //Test03(); // les événements
+
+            Test04(); // les evenement bis
 
             Console.ReadKey();
         }
+
+        // BEGIN Test04 -------------------------------------------------------------------------
+        private static void Test04()
+        {
+            new DemoEvenementBis().Demo();
+        }
+
+        public class VoitureBis
+        {
+            /*
+            // définissons un délégué qui ne retourne rien et qui prend en paramètre un décimal.
+            public delegate void DelegateDeChangementDePrix(decimal nouveauPrix);
+
+            // Nous définissons ensuite un événement basé sur ce délégué
+            public event DelegateDeChangementDePrix ChangementDePrix;
+            */
+
+            // Rafinons l'exemple en utilisant EventHandler dans notre classe
+            public event EventHandler<ChangementDePrixEventsArgs> ChangementDePrix;
+
+            public decimal Prix { get; set; }
+
+            public void PromoSurLePrix()
+            {
+                Prix = Prix / 2;
+                //  nous notifions les éventuels objets qui se seraient abonnés à cet événement 
+                // en invoquant l’événement et en lui fournissant en paramètre le nouveau prix.
+                if (ChangementDePrix != null) //  testons d’abord s’il y a un abonné à l’événement
+                {
+                    /*ChangementDePrix(Prix);*/
+                    ChangementDePrix(this, new ChangementDePrixEventsArgs { Prix = Prix });
+                }
+            }
+        }
+
+        public class DemoEvenementBis
+        {
+            public DemoEvenementBis()
+            {
+            }
+
+            public void Demo()
+            {
+                VoitureBis voiture = new VoitureBis { Prix = 10000 };
+                /*
+                voiture.ChangementDePrix += Voiture_ChangementDePrix;
+                voiture.ChangementDePrix += Voiture_ChangementDePrix1;
+                */
+                voiture.ChangementDePrix += Voiture_ChangementDePrix2;
+                voiture.PromoSurLePrix();
+            }
+
+            private void Voiture_ChangementDePrix2(object sender, ChangementDePrixEventsArgs e)
+            {
+                Console.WriteLine($"Le nouveau prix est de {e.Prix}");
+            }
+
+            private void Voiture_ChangementDePrix1(decimal nouveauPrix)
+            {
+                Console.WriteLine($"Dans VoitureBis Voiture_ChangementDePrix1 : on vien de changer le prix à : {nouveauPrix}");
+            }
+
+            private void Voiture_ChangementDePrix(decimal nouveauPrix)
+            {
+                Console.WriteLine($"Dans VoitureBis on vien de changer le prix à : {nouveauPrix}");
+            }
+        }
+
+        public class ChangementDePrixEventsArgs : EventArgs
+        {
+            public decimal Prix { get; set; }
+        }
+        // END test04 ------------------------------------------------------------------------------
+        private static void Test03()
+        {
+            // Les événements sont un mécanisme du C# permettant à une classe d'être notifiée d'un changement.
+            // La base des événements est le délégué. On pourra stocker dans un événement un ou plusieurs délégués
+            // qui pointent vers des méthodes respectant la signature de l'événement.
+            // Un événement est défini grâce au mot clef event:
+
+            new DemoEvenement().Demo();
+        }
+
+        public class DemoEvenement
+        {
+            public DemoEvenement()
+            {
+            }
+
+            public void Demo()
+            {
+                // Etape 1 : créer une voiture
+                Voiture voiture = new Voiture { Prix = 10000 };
+
+                // Etape 2 : créons un délégué du même type que l’événement.
+                Voiture.DelegateDeChangementDePrix delegateDeChangementDePrix = voiture_ChangementDePrix;
+
+                // Etape 3 : faisons pointer vers une méthode qui respecte la signature du délégué
+                voiture.ChangementDePrix += delegateDeChangementDePrix;
+
+                voiture.PromoSurLePrix();
+            }
+
+            private void voiture_ChangementDePrix(decimal nouveauPrix)
+            {
+                Console.WriteLine("Le nouveau prix est de : " + nouveauPrix);
+            }
+        }
+
+        public class Voiture
+        {
+            public delegate void DelegateDeChangementDePrix(decimal nouveauPrix);
+            public event DelegateDeChangementDePrix ChangementDePrix;
+            public decimal Prix { get; set; }
+
+            public void PromoSurLePrix()
+            {
+                Prix = Prix / 2;
+                if (ChangementDePrix != null)
+                {
+                    ChangementDePrix(Prix);
+                }
+            }
+        }
+
+
 
         delegate void DelegateInstruction(string s);
 
@@ -38,9 +169,20 @@ namespace ExempleDeleguesEvenementsExpressionsLambdas
 
             Func<int, int> myDelegate = x => x * x;
             int square = myDelegate(5);
-
             Console.WriteLine(square); // square vaut 25
 
+            Func<double, double, double> division = (x, y) => x / y;
+            double result = division(8, 2);
+            Console.WriteLine($"Résultat de la division de 8 par 2 : {result} ");
+
+            int[] nombres = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            // Calcule le nombre d'éléments pairs dans la liste
+            int pairs = nombres.Count(n => n % 2 == 0);
+            Console.WriteLine($"Il y a  {pairs} éléments pairs dans la liste");
+
+            var moyenne = nombres.Average(n => n);
+            Console.WriteLine($"Dans la liste, la moyenne est  {moyenne}.");
 
         }
 
@@ -72,9 +214,12 @@ namespace ExempleDeleguesEvenementsExpressionsLambdas
 
 
 
-            
+
         }
     }
+
+
+
     public class TrieurDeTableau
     {
         private delegate void DelegateTri(int[] tableau);
@@ -179,12 +324,12 @@ namespace ExempleDeleguesEvenementsExpressionsLambdas
         public void DemoTri03(int[] pTableau)
         {
             DelegateTri tri = TriAscendantEtAffiche;
-            tri += TriDescendantEtAffiche;
+            tri += TriDescendantEtAffiche; // L'opérateur += ajoute la méthode  "TriDescendantEtAffiche" au délégué "tri"
             tri(pTableau);
         }
 
         /// <summary>
-        /// Illustre la cas DemoTri03 avec des dfinitions des méthodes intégrées
+        /// Illustre la cas DemoTri03 avec des définitions des méthodes intégrées
         /// </summary>
         /// <param name="pTableau"></param>
         public void DemoTri04(int[] pTableau)
