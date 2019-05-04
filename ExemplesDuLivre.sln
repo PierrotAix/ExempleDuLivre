@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ2008", "LINQ2008\LINQ2008.csproj", "{283FE97B-C117-4DC1-9A55-1DC754796CAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExempleDeleguesEvenementsExpressionsLambdas", "ExempleDeleguesEvenementsExpressionsLambdas\ExempleDeleguesEvenementsExpressionsLambdas.csproj", "{02D07471-C0C7-4452-8135-F8086DF76020}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{283FE97B-C117-4DC1-9A55-1DC754796CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{283FE97B-C117-4DC1-9A55-1DC754796CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{283FE97B-C117-4DC1-9A55-1DC754796CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02D07471-C0C7-4452-8135-F8086DF76020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D07471-C0C7-4452-8135-F8086DF76020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02D07471-C0C7-4452-8135-F8086DF76020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02D07471-C0C7-4452-8135-F8086DF76020}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
