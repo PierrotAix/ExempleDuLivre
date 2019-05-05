@@ -20,15 +20,103 @@ namespace ExempleDeleguesEvenementsExpressionsLambdas
 
             //Test03(); // les événements
 
-            Test04(); // les evenement bis
+            //Test04(); // les evenement bis
+
+            Test05(); // les évenements ter. Affiche si c'est ton anniversaire.
 
             Console.ReadKey();
         }
+
+        // BEGIN Test05 -------------------------------------------------------------------------
+        private static void Test05()
+        {
+            new DemoEvenementTer().Demo();
+        }
+
+        public class CestAnniversaireEventsArgs : EventArgs
+        {
+            public int Age { get; set; }
+        }
+
+        public class Personne
+        {
+            #region Events
+            public event EventHandler<CestAnniversaireEventsArgs> CestAnniversaire;
+            #endregion
+
+            #region Fields
+            private DateTime dateDeNaissance;
+            #endregion
+
+            #region Properties
+            public string Nom { get; set; }
+
+            public int Age { get; private set; }
+
+            public DateTime DateDeNaissance
+            {
+                get
+                {
+                    return dateDeNaissance;
+                }
+                set
+                {
+                    // Vérifie si c'est le jour anniversaire
+                    DateTime dateSaisie = value;
+                    if (dateSaisie.Day == DateTime.Now.Day && dateSaisie.Month == DateTime.Now.Month)
+                    {
+                        // C'est anniversaire
+                        if (CestAnniversaire != null) //  testons d’abord s’il y a un abonné à l’événement
+                        {
+                            CestAnniversaire(this, new CestAnniversaireEventsArgs { Age = Age });
+                        }
+                    }
+
+                    dateDeNaissance = value;
+
+                    // calcul de l'age
+                    Age = DateTime.Now.Year - dateDeNaissance.Year;
+                }
+            }
+
+            #endregion
+        }
+
+        public class DemoEvenementTer
+        {
+            public void Demo()
+            {
+                Personne personne = new Personne
+                {
+                    Nom = "Christine",
+                   //Age = 53,
+                    DateDeNaissance = new DateTime(1967, 5, 4)
+                };
+
+                personne.CestAnniversaire += Personne_CestAnniversaire;
+
+                personne.DateDeNaissance = new DateTime(1967, 5, 5);
+            }
+
+            private void Personne_CestAnniversaire(object sender, CestAnniversaireEventsArgs e)
+            {
+                Console.WriteLine($"Bon anniversaire de {e.Age} ans !"); 
+            }
+        }
+
+
+        // END Test05 -------------------------------------------------------------------------
 
         // BEGIN Test04 -------------------------------------------------------------------------
         private static void Test04()
         {
             new DemoEvenementBis().Demo();
+        }
+
+
+        public class ChangementDePrixEventsArgs : EventArgs
+        {
+            public decimal Prix { get; set; }
         }
 
         public class VoitureBis
@@ -92,10 +180,6 @@ namespace ExempleDeleguesEvenementsExpressionsLambdas
             }
         }
 
-        public class ChangementDePrixEventsArgs : EventArgs
-        {
-            public decimal Prix { get; set; }
-        }
         // END test04 ------------------------------------------------------------------------------
         private static void Test03()
         {
